@@ -28,6 +28,7 @@ public class GridManager : MonoBehaviour
     public int             m_numOfColumns  = 1;
     public float           m_gridCellSize  = 1;
     public bool            m_showGrid      = true;
+    public bool            m_showCenter    = false;
     private Vector3        _m_origin       = Vector3.zero;
     public Vector3 Origin
     {
@@ -175,11 +176,13 @@ public class GridManager : MonoBehaviour
         {
             return;
         }
-        //Gizmos.color = new Color(1, 0, 0, 1f);
         DebugDrawGrid(transform.position, m_numOfRows, m_numOfColumns,
             m_gridCellSize, Color.green);
 
-       
+        if (!m_showCenter)
+        {
+            return;
+        }
         float width  = m_numOfColumns * m_gridCellSize / 2.0f;
         float height = m_numOfRows * m_gridCellSize / 2.0f;
         Vector3 center = transform.position;
