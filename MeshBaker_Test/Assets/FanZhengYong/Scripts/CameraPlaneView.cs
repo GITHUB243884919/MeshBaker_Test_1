@@ -7,15 +7,16 @@ public class CameraPlaneView : MonoBehaviour
     #region for debug
     public Camera viewCamera;
 
-    void Update()
+    //void Update()
+    void OnDrawGizmos()
     {
         Vector3[] corners;
         if (GetPlaneCorners(Vector3.up, Vector3.zero, viewCamera, out corners))
         {
-            Debug.DrawLine(corners[0], corners[1], Color.green);    // bottom
-            Debug.DrawLine(corners[1], corners[2], Color.green);    // right
-            Debug.DrawLine(corners[2], corners[3], Color.green);    // top
-            Debug.DrawLine(corners[3], corners[0], Color.green);    // left
+            Debug.DrawLine(corners[0], corners[1], Color.red);    // bottom
+            Debug.DrawLine(corners[1], corners[2], Color.red);    // right
+            Debug.DrawLine(corners[2], corners[3], Color.red);    // top
+            Debug.DrawLine(corners[3], corners[0], Color.red);    // left
         }
     }
     #endregion

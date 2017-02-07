@@ -8,8 +8,14 @@ public class CamerForTargetInCenter : MonoBehaviour
 
 	void Start () 
     {
-        Vector3 origin = transform.position;
-        transform.RotateAround(origin, new Vector3(160, 100, 0), 45f);
+        //Vector3 origin = transform.position;
+        //transform.RotateAround(origin, new Vector3(160, 100, 0), 45f);
+        //transform.LookAt(target);
 	}
+
+    void LateUpdate()
+    {
+        transform.LookAt(target);
+    }
 
 }
