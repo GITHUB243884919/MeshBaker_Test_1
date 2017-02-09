@@ -5,17 +5,25 @@ public class CamerForTargetInCenter : MonoBehaviour
 {
     public Transform  target;
 
+    private Transform oldTarTrs;
 
+    private Transform oldCamTrs;
 	void Start () 
     {
-        //Vector3 origin = transform.position;
-        //transform.RotateAround(origin, new Vector3(160, 100, 0), 45f);
-        //transform.LookAt(target);
+        oldTarTrs = target;
+        transform.LookAt(oldTarTrs);
+        oldCamTrs = transform;
 	}
 
     void LateUpdate()
     {
-        transform.LookAt(target);
+        Vector3 offsetPos = transform.position - oldCamTrs.position;
+        Vector3 offsetAng = transform.eulerAngles - oldCamTrs.eulerAngles;
+
+        oldTarTrs.position += offsetPos;
+        oldTarTrs.eulerAngles += offsetAng;
+        transform.LookAt(oldTarTrs);
+        oldCamTrs = transform;
     }
 
 }
