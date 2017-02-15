@@ -53,15 +53,5 @@ public class AIController : VehicleController
 			transform.forward = newForward;
 		}
 
-		//gameObject.animation.Play("walk");
-        //速度为0时，动画的跑步动作停止
-        //m_animator.SetBool("isRun", true);
-        //if (velocity == Vector3.zero)
-        //{
-        //    m_animator.SetBool("isRun", false);
-        //}
-        
-        //velocity = Vector3.zero;
-
 	}
 }

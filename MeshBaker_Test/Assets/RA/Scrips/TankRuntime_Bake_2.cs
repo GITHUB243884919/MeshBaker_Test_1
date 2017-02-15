@@ -53,13 +53,13 @@ public class TankRuntime_Bake_2 : MonoBehaviour
         go1.transform.position = new Vector3(0f, 0f, 0f);
 
         go2 = (GameObject)Instantiate(prefab);
-        go2.transform.position = new Vector3(10f, 0f, 10f);
+        go2.transform.position = new Vector3(0f, 0f, 0f);
 
         go3 = (GameObject)Instantiate(prefab);
-        go3.transform.position = new Vector3(20f, 0f, 20f);
+        go3.transform.position = new Vector3(0f, 0f, 0f);
 
         go4 = (GameObject)Instantiate(prefab);
-        go4.transform.position = new Vector3(30f, 0f, 30f);
+        go4.transform.position = new Vector3(0f, 0f, 0f);
 
         MB3_MeshBaker meshbaker = baker.GetComponentInChildren<MB3_MeshBaker>();
         MB3_TextureBaker texturebaker = baker.GetComponent<MB3_TextureBaker>();
