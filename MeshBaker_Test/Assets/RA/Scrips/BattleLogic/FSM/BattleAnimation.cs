@@ -24,6 +24,11 @@ public class BattleAnimation
     public void Attack()
     {
         Debug.Log("BattleAnimation Attack");
+        AnimatorStateInfo info = m_animator.GetCurrentAnimatorStateInfo(0);
+        if (info.normalizedTime < 1.0f)
+        {
+            return;
+        }
         m_animator.SetTrigger("Fire");
     }
 }

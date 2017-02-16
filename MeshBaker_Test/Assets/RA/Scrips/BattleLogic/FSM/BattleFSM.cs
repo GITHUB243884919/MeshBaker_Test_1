@@ -84,7 +84,6 @@ public class BattleFSM : MonoBehaviour
     {
         //调用BattleAction，由其调用BattleAnimate执行一个动画
         _m_FSMCtr.battleAction.Idle();
-
     }
 
     void Move()
@@ -107,7 +106,6 @@ public class BattleFSM : MonoBehaviour
     {
         //调用BattleAction，由其调用BattleAnimate执行一个动画
         _m_FSMCtr.battleAction.Attack();
-        m_state = E_FSM_STATE.NONE;
     }
 
     void Attacked()

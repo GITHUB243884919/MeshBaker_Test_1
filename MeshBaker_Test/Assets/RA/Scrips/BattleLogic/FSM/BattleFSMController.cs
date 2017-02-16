@@ -21,7 +21,7 @@ public class BattleFSMController : MonoBehaviour
         
         _m_FSM = _m_trs.gameObject.GetComponent<BattleFSM>();
         _m_FSM.SetFSMCtroller(this);
-        Debug.Log("_m_FSM.SetFSMCtroller");
+        //Debug.Log("_m_FSM.SetFSMCtroller");
 
         _m_action = new BattleAction(this);
 

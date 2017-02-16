@@ -29,7 +29,7 @@ public class BattleAIArrive : BattleAISteering
 	
 	public override Vector3 Force()
 	{
-        Debug.Log("Force");
+        //Debug.Log("Force");
         Vector3 returnForce = Vector3.zero;
         if (m_target == null)
         {
