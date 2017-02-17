@@ -18,9 +18,13 @@ public class SceneTest : MonoBehaviour
         Debug.Log(go == null);
         SceneObjectManager manager = go.GetComponent<SceneObjectManager>();
         Debug.Log(manager == null);
-        ObjectElement obj = manager.GetOneObject(E_SCENE_OBJECT_TYPE.TANK);
-        obj.m_go.transform.position = new Vector3(10, 0, 10);
-        obj.m_go.name += "USED";
+        //for (int i = 0; i < 500; i++)
+        {
+            ObjectElement obj = manager.GetOneObject(E_SCENE_OBJECT_TYPE.TANK);
+            obj.m_go.transform.position = new Vector3(10, 0, 10);
+            obj.m_go.name += "USED";
+        }
+
     }
 
 	// Update is called once per frame
