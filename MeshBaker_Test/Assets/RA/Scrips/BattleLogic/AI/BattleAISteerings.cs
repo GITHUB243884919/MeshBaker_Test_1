@@ -1,12 +1,13 @@
 ﻿/// <summary>
-/// AI行为控制类
+/// AI行为容器
+/// 负责计算出容器内有效的（可能是多个）行为类形成的合力，最终对其形成作用
 /// autor: fanzhengyong
 /// date: 2017-02-16 
 /// </summary>
 using UnityEngine;
 using System.Collections;
 
-public class BattleAISteeringController: MonoBehaviour 
+public class BattleAISteerings: MonoBehaviour 
 {
     private BattleAISteering[] m_steerings;
     public float              m_maxSpeed = 10;
@@ -19,21 +20,21 @@ public class BattleAISteeringController: MonoBehaviour
     public bool               m_isPlanar = true;
 
 	private Vector3           m_steeringForce;
-	protected Vector3         m_acceleration;
+    private Vector3           m_acceleration;
 	private float             m_timer = 0.0f;
 
-    public bool m_displayTrack = true;
-    private Vector3 m_moveDistance;
-    private Animator m_animator = null;
+    public bool               m_displayTrack = true;
+    private Vector3           m_moveDistance;
 
 	protected void Start () 
 	{
-        m_moveDistance = Vector3.zero;
-        m_animator = GetComponent<Animator>();
+        m_timer           = 0.0f;
+
+        m_moveDistance   = Vector3.zero;
         m_steeringForce  = Vector3.zero;
         m_sqrMaxSpeed    = m_maxSpeed * m_maxSpeed;
-        m_timer          = 0.0f;
-        m_steerings = GetComponents<BattleAISteering>();
+
+        m_steerings      = GetComponents<BattleAISteering>();
 	}
 
 	void Update () 

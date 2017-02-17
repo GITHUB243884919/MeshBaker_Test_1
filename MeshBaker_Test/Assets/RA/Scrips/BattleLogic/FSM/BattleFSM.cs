@@ -89,7 +89,7 @@ public class BattleFSM : MonoBehaviour
     void Move()
     {
         //调用BattleAction，尤其调用BattleAI,到达指定目的地
-
+        _m_FSMCtr.battleAction.Move();
     }
 
     void Ready()

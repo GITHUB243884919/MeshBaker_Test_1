@@ -14,21 +14,20 @@ public class BattleFSMController : MonoBehaviour
     private BattleAction _m_action;
     private BattleAI _m_AI;
     private BattleAnimation _m_animation;
-
     void Init()
     {
         _m_trs = transform;
-        
-        _m_FSM = _m_trs.gameObject.GetComponent<BattleFSM>();
-        _m_FSM.SetFSMCtroller(this);
-        //Debug.Log("_m_FSM.SetFSMCtroller");
+
+        Animator animator = gameObject.GetComponent<Animator>();
+        _m_animation = new BattleAnimation(this, animator);
+
+        _m_AI = new BattleAI(this);
 
         _m_action = new BattleAction(this);
 
-        _m_AI = new BattleAI(this);
-        
-        Animator animator = gameObject.GetComponent<Animator>();
-        _m_animation = new BattleAnimation(this, animator);
+        _m_FSM = _m_trs.gameObject.GetComponent<BattleFSM>();
+        _m_FSM.SetFSMCtroller(this);
+
     }
 
     public void Trigger(BattleFSM.E_FSM_STATE state)
@@ -36,7 +35,7 @@ public class BattleFSMController : MonoBehaviour
         _m_FSM.Trigger(state);
     }
 
-    //设置数据
+    //数据
     public void SetTargetForMove(Vector3 target)
     {
         _m_FSM.m_targetForMove = target;
