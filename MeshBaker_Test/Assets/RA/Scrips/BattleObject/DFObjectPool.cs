@@ -1,6 +1,6 @@
 ﻿/// <summary>
 /// 战斗对象池实现
-/// 所有需要被管理的对象从DFObject派生
+/// 所有需要被缓存的对象从DFObject派生
 /// 
 /// pool初始化 ：
 ///     函数 Init(DFCreator creator, DFCreatorFactory creatorFactory)
@@ -18,7 +18,7 @@
 ///     至于什么时候调用pool的Realse由外层逻辑，持有pool的class负责。
 ///     
 /// 为什么DFObject是虚基类？
-///     pool设计的最初始目的是为了管理这样一种对象：聚合了GameObject和若干游戏逻辑属性（比如生命值）
+///     pool设计的最初始目的是为了缓存多种类似于这样的对象：包含GameObject和若干游戏逻辑属性（比如生命值）
 ///     的对象。但是相对于pool，并不需要这些内容，他需要关心的是能通过一些管理对象需要的字段。
 ///     
 /// 为什么需要一个生成器DFCreator？
