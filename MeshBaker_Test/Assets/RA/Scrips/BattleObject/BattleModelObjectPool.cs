@@ -12,9 +12,9 @@ public class BattleModelObj : DFObject
 {
     public GameObject m_go;
 
-    public E_SCENE_OBJECT_TYPE m_type;
+    public BattleScene.E_BATTLE_OBJECT_TYPE m_type;
 
-    public BattleModelObj(GameObject go, E_SCENE_OBJECT_TYPE type)
+    public BattleModelObj(GameObject go, BattleScene.E_BATTLE_OBJECT_TYPE type)
     {
         m_go    = go;
         m_type  = type;
@@ -28,7 +28,7 @@ public class BattleModelObjCreator : DFCreator
     //被生成并克隆的对象，称为种子。春天把一个坦克埋进去，到秋天长出好多坦克:)
     private GameObject m_seed;
     private GameObject m_meshbakerGo;
-    private E_SCENE_OBJECT_TYPE m_type;
+    private BattleScene.E_BATTLE_OBJECT_TYPE m_type;
     
     //一次生成的对象个数
     public int m_count;
@@ -49,7 +49,7 @@ public class BattleModelObjCreator : DFCreator
     /// </param>
     /// <param name="type"></param>
     /// <param name="count"></param>
-    public BattleModelObjCreator(string[] paths, E_SCENE_OBJECT_TYPE type, int count)
+    public BattleModelObjCreator(string[] paths, BattleScene.E_BATTLE_OBJECT_TYPE type, int count)
     {
         GameObject bakerRes = Resources.Load<GameObject>(paths[0]);
         m_meshbakerGo = GameObject.Instantiate<GameObject>(bakerRes);
@@ -130,7 +130,7 @@ public class BattleModelObjCreator : DFCreator
 public class BattleModelObjCreatorFactory : DFCreatorFactory
 {
     private string[] m_paths;
-    private E_SCENE_OBJECT_TYPE m_type;
+    private BattleScene.E_BATTLE_OBJECT_TYPE m_type;
     private int m_count;
 
     /// <summary>
@@ -143,7 +143,7 @@ public class BattleModelObjCreatorFactory : DFCreatorFactory
     /// </param>
     /// <param name="type"></param>
     /// <param name="count"></param>
-    public BattleModelObjCreatorFactory(string[] paths, E_SCENE_OBJECT_TYPE type, int count)
+    public BattleModelObjCreatorFactory(string[] paths, BattleScene.E_BATTLE_OBJECT_TYPE type, int count)
     {
         m_paths = paths;
         m_type = type;

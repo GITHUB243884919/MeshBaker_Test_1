@@ -17,7 +17,7 @@ public class DFPoolTest : MonoBehaviour
         };
 
         BattleModelObjCreatorFactory creatorFactory = new BattleModelObjCreatorFactory(
-            paths, E_SCENE_OBJECT_TYPE.TANK, count);
+            paths, BattleScene.E_BATTLE_OBJECT_TYPE.TANK, count);
         DFCreator creator = creatorFactory.CreatCreator();
         //creator.CreateObjects();
 
