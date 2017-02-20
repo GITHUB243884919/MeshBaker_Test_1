@@ -1,13 +1,19 @@
 ﻿/// <summary>
-/// 战斗对象池实现
-/// 所有需要被缓存的对象从DFObject派生
+/// 一种对象池实现
+/// author : fanzhengyong
+/// date  : 2017-02-20
 /// 
-/// pool初始化 ：
+/// 所有需要被缓存的对象从DFObject派生
+/// DFCreator是对象生成器，负责生成DFObject，需要派生类实现
+/// DFCreatorFactory是对象生成器工厂，负责生成DFCreator，不是必须，如果需要也要派生
+/// 
+/// pool初始化：
 ///     函数 Init(DFCreator creator, DFCreatorFactory creatorFactory)
 ///     需要把对象生成器和工厂类，这两个必须有一个不为空。如果前者不为空，那么对象的
 ///     从pool中取出空闲的对象 ：函数 BorrowObj()
 ///     之所以用borrow这个单词的意思是要强调是“借”，既然是借就修改改对象，更不能删除对象！
 ///     不能修改是指不能修改DFObject范围内的字段。派生类的字段不受限。
+///     
 /// 从对象暂时不用了放回pool：
 ///     函数 ReturnObj()
 ///     跟borrow对应，有借有还。
@@ -25,10 +31,8 @@
 ///     既然对象已经被抽象，那么对象如何生成pool也不需要知道细节。
 ///     
 /// 为什么需要一个生成器工厂 DFCreatorFactory？
-///     为了适应每次都需要一个新的生成器（新的指针）时。
+///     为了适应每次都需要一个新的生成器（新的指针）。如果不需要可以没有，在Init的时候指定null或不传
 ///     
-/// autor : fanzhengyong
-/// date  : 2017-02-18
 /// </summary>
 using UnityEngine;
 using System.Collections;
@@ -57,9 +61,6 @@ public abstract class DFObject
 /// </summary>
 public abstract class DFCreator
 {
-
-    //一次创建多少个对象
-    public int m_countCreat = 32;
     public virtual DFObject [] CreateObjects() 
     {
         DFObject [] objs = null;
@@ -88,7 +89,7 @@ public class DFObjectPool
     public readonly int BAD_INDEX = -1;
     public DFCreatorFactory m_creatorFactory;
     public DFCreator m_creator;
-    public bool Init(DFCreator creator, DFCreatorFactory creatorFactory)
+    public bool Init(DFCreator creator, DFCreatorFactory creatorFactory = null)
     {
         m_creator = creator;
         m_creatorFactory = creatorFactory;
@@ -100,7 +101,7 @@ public class DFObjectPool
         DFObject obj = null;
         bool retCode = false;
         obj = GetFreeObj();
-        if (obj == null)
+        if (obj != null)
         {
             return obj;
         }
@@ -117,6 +118,11 @@ public class DFObjectPool
 
     public void ReturnObj(DFObject obj)
     {
+        if (obj.m_state == DFObject.E_STATE.FREE)
+        {
+            return;
+        }
+
         m_nextFree = m_free;
         m_free = obj.m_idx;
         obj.m_state = DFObject.E_STATE.FREE;
@@ -136,6 +142,12 @@ public class DFObjectPool
 
     private bool Resize()
     {
+        //只有在不够时才执行
+        if (m_countFree > 0)
+        {
+            return false;
+        }
+
         DFObject[] objs = null;
         objs = CreatObjects(m_creator, m_creatorFactory);
         if (objs == null)
@@ -149,20 +161,28 @@ public class DFObjectPool
         {
             objs[i].m_idx = oldCount + i;
             objs[i].m_nextFree = oldCount + i + 1;
-            m_pool[oldCount + i] = objs[i];
+            objs[i].m_state = DFObject.E_STATE.FREE;
+            m_pool.Add(objs[i]);
         }
 
+        //无论如何，最后的一个m_nextFree总是==-1
         m_pool[m_pool.Count - 1].m_nextFree = BAD_INDEX;
+        
         if (m_pool.Count > objs.Length)
         {
-            m_pool[m_pool.Count - objs.Length - 1].m_nextFree =
-                m_pool[m_pool.Count - objs.Length].m_idx;
+            //进入这个分支，说明已经被resize被执行过2次以上（含2次），需要重新设置m_free和m_nextFree
+            m_free = m_pool.Count - objs.Length;
+            m_nextFree = m_free + 1;
+            m_pool[m_free].m_nextFree = m_nextFree;
+
+            //Debug.Log("Resize free " + m_free
+            //    + " nextFree " + m_nextFree);
         }
         
         return true;
     }
 
-    public DFObject [] CreatObjects(DFCreator creator, DFCreatorFactory creatorFactory)
+    private DFObject [] CreatObjects(DFCreator creator, DFCreatorFactory creatorFactory)
     {
         DFObject[] objs = null;
         if (creator != null)
@@ -178,7 +198,7 @@ public class DFObjectPool
         }
         else
         {
-            //return false;
+            objs = null;
         }
 
         return objs;
@@ -190,11 +210,21 @@ public class DFObjectPool
         if (m_countFree > 0)
         {
             obj = m_pool[m_free];
-            m_nextFree = obj.m_nextFree;
+            if (m_nextFree != BAD_INDEX)
+            {
+                m_free = m_nextFree;
+                m_nextFree = m_pool[m_free].m_nextFree;
+            }
+            else
+            {
+                m_free = BAD_INDEX;
+                //此时已经没有空闲的了，
+                //本应该写m_countFree=0，只是外面已经写了m_countFree--，就省略了
+            }
+
             m_countFree--;
             obj.m_state = DFObject.E_STATE.UNFREE;  
         }
         return obj;
     }
-
 }

@@ -1,6 +1,6 @@
 ﻿/// <summary>
 /// 场景对象池
-/// autor: fanzhengyong
+/// author: fanzhengyong
 /// date: 2017-02-15 
 /// </summary>
 using UnityEngine;
