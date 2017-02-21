@@ -48,12 +48,14 @@ public class BattleAction
 
     public void Move()
     {
+        //Debug.Log("BattleAction Move");
         if (m_battleAI == null)
         {
             m_battleAI = _m_FSMCtr.battleAI;
         }
         if (m_battleAI == null)
         {
+            Debug.LogError("m_battleAI == null");
             return;
         }
         

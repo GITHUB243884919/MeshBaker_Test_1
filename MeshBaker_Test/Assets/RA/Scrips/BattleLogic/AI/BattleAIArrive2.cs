@@ -31,17 +31,18 @@ public class BattleAIArrive2 : BattleAISteering
     public delegate void DelegateArrived();
     public DelegateArrived m_arrivedCallback = null;
 
-    private float m_uSpeed = 2.0f;
+    private float m_uSpeed = 5.0f;
     private Vector3 m_uForce = Vector3.zero;
 
 	void Start () 
     {
-        Debug.Log("begin" + Time.realtimeSinceStartup);
+        //Debug.Log("begin" + Time.realtimeSinceStartup);
         Init();
 	}
 
     public override void Init()
     {
+        //Debug.Log("BattleAIArrive2 Init");
         m_vehicle  = GetComponent<BattleAISteerings2>();
         m_maxSpeed = m_vehicle.m_maxSpeed;
         m_isPlanar = m_vehicle.m_isPlanar;
@@ -53,7 +54,7 @@ public class BattleAIArrive2 : BattleAISteering
 	
 	public override Vector3 Force()
 	{
-        //Debug.Log("Force");
+        //Debug.Log("BattleAIArrive2 Force");
         Vector3 force = Vector3.zero;
         if (m_target == null)
         {
@@ -68,21 +69,22 @@ public class BattleAIArrive2 : BattleAISteering
             toTarget.y = 0;
         }
 		float distance = toTarget.magnitude;
-        Debug.Log("distance " + distance + "near " + m_nearDistance);
-        force = m_uForce;
+        //Debug.Log("distance " + distance + "near " + m_nearDistance);
+        force = toTarget.normalized * m_uSpeed;
+        transform.LookAt(m_target);
         //到了
         if (distance <= m_nearDistance)
         {
             //m_vehicle.m_velocity = Vector3.zero;
             force = Vector3.zero;
-            Debug.Log("end" + Time.realtimeSinceStartup);
+            //Debug.Log("end" + Time.realtimeSinceStartup);
 
             if (m_arrivedCallback != null)
             {
                 m_arrivedCallback();
             }
         }
-
+        //Debug.Log("BattleAIArrive2 Force " + force);
         return force;
 	}
 

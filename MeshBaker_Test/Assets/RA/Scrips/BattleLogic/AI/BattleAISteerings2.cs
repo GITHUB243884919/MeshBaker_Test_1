@@ -81,22 +81,24 @@ public class BattleAISteerings2: MonoBehaviour
         //    m_moveDistance.y = 0;
         //}
 
-        //if (m_displayTrack)
-        //{
-        //    Debug.DrawLine(transform.position,
-        //        transform.position + m_moveDistance, Color.red, 30.0f);
-        //}
-
         m_moveDistance = m_acceleration * Time.fixedDeltaTime;
         transform.position += m_moveDistance;
 
-        if (m_velocity.sqrMagnitude > 0.00001)
+        if (m_displayTrack)
         {
-            Vector3 newForward = Vector3.Slerp(transform.forward, m_velocity, m_damping * Time.deltaTime);
-            if (m_isPlanar)
-                newForward.y = 0;
-            transform.forward = newForward;
+            Debug.DrawLine(transform.position,
+                transform.position + m_moveDistance, Color.red, 30.0f);
         }
+
+
+
+        //if (m_velocity.sqrMagnitude > 0.00001)
+        //{
+        //    Vector3 newForward = Vector3.Slerp(transform.forward, m_velocity, m_damping * Time.deltaTime);
+        //    if (m_isPlanar)
+        //        newForward.y = 0;
+        //    transform.forward = newForward;
+        //}
 
     }
 }

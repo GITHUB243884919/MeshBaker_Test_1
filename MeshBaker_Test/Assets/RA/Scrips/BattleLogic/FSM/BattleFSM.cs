@@ -26,8 +26,11 @@ public class BattleFSM : MonoBehaviour
     public float        m_health          = 1.0f;
 
     private BattleFSMController _m_FSMCtr;
+
+    private float  m_timer = 0f;
     public void Trigger(E_FSM_STATE state)
     {
+        Debug.Log("BattleFSM Trigger " + state + " " + Time.realtimeSinceStartup);
         m_state = state;
     }
 
@@ -39,20 +42,28 @@ public class BattleFSM : MonoBehaviour
     void Init()
     {
         //设置初始化状态
-        m_state = E_FSM_STATE.IDLE;
+        Debug.Log("BattleFSM Init " + E_FSM_STATE.IDLE + " " + Time.realtimeSinceStartup);
+        m_state = E_FSM_STATE.MOVE;
     }
 
     void FSMUpdate()
     {
+        m_timer += Time.deltaTime;
+        if (m_timer < 0.8f)
+        {
+            return;
+        }
+
         switch(m_state)
         {
             case E_FSM_STATE.NONE:
-                Debug.Log("BattleFSM FSMUpdate E_FSM_STATE.NONE");
+                //Debug.Log("BattleFSM FSMUpdate E_FSM_STATE.NONE");
                 break;
             case E_FSM_STATE.IDLE:
                 Idle();
                 break;
             case E_FSM_STATE.MOVE:
+                //Debug.Log("BattleFSM FSMUpdate E_FSM_STATE.MOVE");
                 Move();
                 break;
             case E_FSM_STATE.READY:
@@ -75,11 +86,11 @@ public class BattleFSM : MonoBehaviour
         {
             m_state = E_FSM_STATE.DEAD;
         }
-            
+
+        m_timer = 0f;
     }
 
     /*以下是各个状态内该执行的逻辑*/
-
     void Idle()
     {
         //调用BattleAction，由其调用BattleAnimate执行一个动画
@@ -89,6 +100,7 @@ public class BattleFSM : MonoBehaviour
     void Move()
     {
         //调用BattleAction，尤其调用BattleAI,到达指定目的地
+        //Debug.Log("BattleFSM Move");
         _m_FSMCtr.battleAction.Move();
     }
 

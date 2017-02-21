@@ -16,7 +16,7 @@ public class BattleAISteerings: MonoBehaviour
     public float              m_mass = 1;
     public Vector3            m_velocity;
     public float              m_damping = 0.9f;
-    public float              m_computeInterval = 0.2f;
+    public float              m_computeInterval = 0.5f;
     public bool               m_isPlanar = true;
 
 	private Vector3           m_steeringForce;

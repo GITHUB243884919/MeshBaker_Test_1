@@ -120,7 +120,7 @@ public class DFObjectPool
     {
         DFObject obj = null;
         if (
-            (idx <= 0) ||
+            (idx < 0) ||
             (idx >= m_pool.Count)
         )
         {

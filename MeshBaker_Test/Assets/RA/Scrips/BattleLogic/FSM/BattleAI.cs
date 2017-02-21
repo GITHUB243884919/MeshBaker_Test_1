@@ -12,15 +12,15 @@ public class BattleAI
     private BattleFSMController _m_FSMCtr;
 
     public BattleFSM m_battleFSM;
-    public BattleAISteerings m_steerings;
-    public BattleAIArrive m_arrive;
+    public BattleAISteerings2 m_steerings;
+    public BattleAIArrive2 m_arrive;
     public BattleAI(BattleFSMController ctr)
     {
         _m_FSMCtr = ctr;
         if (_m_FSMCtr != null)
         {
-            m_steerings = ctr.Trs.gameObject.GetComponent<BattleAISteerings>();
-            m_arrive = ctr.Trs.gameObject.GetComponent<BattleAIArrive>();
+            m_steerings = ctr.Trs.gameObject.GetComponent<BattleAISteerings2>();
+            m_arrive = ctr.Trs.gameObject.GetComponent<BattleAIArrive2>();
         }
     }
 
@@ -40,7 +40,7 @@ public class BattleAI
             return;
         }
 
-        m_arrive.m_target = Vector3.zero;
+        //Debug.Log("BattleAI Arrive " + m_battleFSM.m_targetForMove);
         m_arrive.m_target = m_battleFSM.m_targetForMove;
 
     }

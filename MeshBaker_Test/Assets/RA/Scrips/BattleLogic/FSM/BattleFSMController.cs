@@ -26,12 +26,14 @@ public class BattleFSMController : MonoBehaviour
         _m_action = new BattleAction(this);
 
         _m_FSM = _m_trs.gameObject.GetComponent<BattleFSM>();
+        Debug.Log("_m_FSM " + (_m_FSM != null));
         _m_FSM.SetFSMCtroller(this);
 
     }
 
     public void Trigger(BattleFSM.E_FSM_STATE state)
     {
+        Debug.Log("BattleFSMController Trigger " + state);
         _m_FSM.Trigger(state);
     }
 
