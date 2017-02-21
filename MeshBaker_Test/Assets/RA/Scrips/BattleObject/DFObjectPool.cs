@@ -116,6 +116,22 @@ public class DFObjectPool
         return obj;
     }
 
+    public DFObject BorrowObj(int idx)
+    {
+        DFObject obj = null;
+        if (
+            (idx <= 0) ||
+            (idx >= m_pool.Count)
+        )
+        {
+            return obj;
+        }
+
+        obj = m_pool[idx];
+            
+        return obj;
+    }
+
     public void ReturnObj(DFObject obj)
     {
         if (obj.m_state == DFObject.E_STATE.FREE)

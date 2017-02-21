@@ -14,13 +14,27 @@ public class BattleModelObj : DFObject
 
     public BattleScene.E_BATTLE_OBJECT_TYPE m_type;
 
+
+    //服务器定义的唯一编号和类型编号
+    public static readonly int BAD_ENTITY_ID = -1;
+    public static readonly int BAD_ENTITY_TYPE = -1;
+    public int ServerEntityID { get; set; }
+    public int ServerEntityType { get; set; }
+
     public BattleModelObj(GameObject go, BattleScene.E_BATTLE_OBJECT_TYPE type)
     {
         m_go    = go;
         m_type  = type;
+        ServerEntityID = BAD_ENTITY_ID;
+        ServerEntityType = BAD_ENTITY_TYPE;
     }
 
     private BattleModelObj() { }
+
+    public override void Realse()
+    {
+
+    }
 }
 
 public class BattleModelObjCreator : DFCreator

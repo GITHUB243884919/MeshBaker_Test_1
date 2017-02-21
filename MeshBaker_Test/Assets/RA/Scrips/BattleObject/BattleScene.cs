@@ -10,9 +10,6 @@ public class BattleScene : MonoBehaviour
         SOLDIER
     }
 
-    Dictionary<E_BATTLE_OBJECT_TYPE, DFObjectPool> m_battleObjPools =
-        new Dictionary<E_BATTLE_OBJECT_TYPE, DFObjectPool>();
-
     private static BattleScene s_Instance = null;
     public static BattleScene Instance
     {
@@ -29,51 +26,58 @@ public class BattleScene : MonoBehaviour
         }
     }
 
-	public void Init()
+    private void Init()
     {
-        InitBattleObjPools();
+        BattleModelObjectPoolManager.Instance.Init();
+        ActiveBattleModelObjectCache.Instance.Init();
     }
 
-    private void InitBattleObjPools()
+    /// <summary>
+    /// 在场景取一个对象必须是已知类型，服务器的两个编号的
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="serverEntityID"></param>
+    /// <param name="serverEntityType"></param>
+    /// <returns></returns>
+    public BattleModelObj BorrowBattleModelObj(BattleScene.E_BATTLE_OBJECT_TYPE type,
+        int serverEntityID, int serverEntityType)
     {
-        int countTank = 32;
-        string[] pathsTank = new string[4] 
+        BattleModelObj obj = null;
+        ActiveBattleModelObject activeObj = null;
+
+        //先从缓存中取
+        activeObj = ActiveBattleModelObjectCache.Instance.Find(serverEntityID);
+        if (activeObj != null)
         {
-            "TankRuntime_Bake/TankMeshBaker",
-            "TankRuntime_Bake/TankRuntime_Bake-mat",
-            "TankRuntime_Bake/TankRuntime_Bake",
-            "TankRuntime_Bake/Tank_Seed"
-        };
-        InitBattleObjPool(pathsTank, E_BATTLE_OBJECT_TYPE.TANK, countTank);
+            obj = BattleModelObjectPoolManager.Instance.BorrowObj(
+                activeObj.IdxOfPool, activeObj.Type);
+            return obj;
+        }
 
-        int countSoldier = 32;
-        string[] pathsSoldier = new string[4] 
-        {
-            "SoldierRuntime_Bake/SoldierMeshBaker",
-            "SoldierRuntime_Bake/SoldierRuntime_Bake-mat",
-            "SoldierRuntime_Bake/SoldierRuntime_Bake",
-            "SoldierRuntime_Bake/Soldier_Seed"
-        };
-        InitBattleObjPool(pathsSoldier, E_BATTLE_OBJECT_TYPE.SOLDIER, countSoldier);
+        //缓存中没有才从对象池中取
+        obj = BattleModelObjectPoolManager.Instance.BorrowObj(type);
+
+        //从对象池中取出的对象要放入缓存中
+        obj.ServerEntityID = serverEntityID;
+        obj.ServerEntityType = serverEntityType;
+        ActiveBattleModelObjectCache.Instance.Add(obj);
+
+        return obj;
     }
 
-    private void InitBattleObjPool(string [] paths, E_BATTLE_OBJECT_TYPE type, int count)
+    public void ReturnBattleModelObj(BattleModelObj obj)
     {
-        BattleModelObjCreatorFactory creatorFactory = new BattleModelObjCreatorFactory(
-            paths, type, count);
-        DFCreator creator = creatorFactory.CreatCreator();
-
-        DFObjectPool pool = new DFObjectPool();
-        pool.Init(null, creatorFactory);
-
-        m_battleObjPools.Add(type, pool);
+        //先从缓存中移除
+        ActiveBattleModelObjectCache.Instance.Remove(obj);
+        //再还给对象池
+        BattleModelObjectPoolManager.Instance.ReturnObj(obj);
     }
 
-	void Start() 
+    void Start()
     {
         Init();
-	}
-	
+    } 
+
 	void Update() 
     {
 	
