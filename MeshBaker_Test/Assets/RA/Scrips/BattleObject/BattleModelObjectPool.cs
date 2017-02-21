@@ -27,6 +27,13 @@ public class BattleModelObj : DFObject
         m_type  = type;
         ServerEntityID = BAD_ENTITY_ID;
         ServerEntityType = BAD_ENTITY_TYPE;
+
+        //BattleAISteering[] m_steerings = m_go.GetComponents<BattleAISteering>();
+        //for (int i = 0; i < m_steerings.Length; i++)
+        //{
+        //    m_steerings[i].enabled = false;
+        //}
+
     }
 
     private BattleModelObj() { }
