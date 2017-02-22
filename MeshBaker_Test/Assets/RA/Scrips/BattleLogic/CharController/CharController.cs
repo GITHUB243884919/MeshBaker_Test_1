@@ -25,15 +25,14 @@ public class CharController : MonoBehaviour
 
     public void Init()
     {
+        //到达行为统一处理
+        RegCommond(E_COMMOND.ARRIVE, Arrive);
+
         m_commond = new TankCommond(this);
         m_commond.Init();
 
         m_steers = new MoveSteers(this);
         m_steers.Init();
-
-        //到达行为统一处理
-        RegCommond(E_COMMOND.ARRIVE, Arrive);
-
     }
     public void RegCommond(E_COMMOND commond, CommondCallback callback)
     {

@@ -67,9 +67,15 @@ public class QObjPool<T>
     {
         bool retCode = false;
         T obj = default(T);
-
-        obj = m_pool.Dequeue();
-        if (obj == null)
+        //Debug.Log("FreeCount" + FreeCount);
+        if (FreeCount > 0)
+        {
+            obj = m_pool.Dequeue();
+            FreeCount--;
+            return obj;
+        }
+        
+        //if (obj == null)
         {
             retCode = Resize();
             if (!retCode)
