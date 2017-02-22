@@ -17,12 +17,6 @@ public class Scene_Test_2 : MonoBehaviour
     {
         Debug.Log("Begin click " + Time.realtimeSinceStartup);
         StartCoroutine("CreateTanks");
-        //for (int i = 0; i < 128; i++ )
-        //{
-        //    //CreateTank(i, false, false);
-        //    CreateTank(i, true, false);
-
-        //}
         Debug.Log("End click " + Time.realtimeSinceStartup);
 
     }
@@ -30,10 +24,11 @@ public class Scene_Test_2 : MonoBehaviour
     IEnumerator CreateTanks()
     {
         yield return null;
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 128; i++)
         {
             //CreateTank(i, false, false);
-            CreateTank(i, true, false);
+            //CreateTank(i, true, false);
+            CreateTank(i, true, true);
 
         }
     }
