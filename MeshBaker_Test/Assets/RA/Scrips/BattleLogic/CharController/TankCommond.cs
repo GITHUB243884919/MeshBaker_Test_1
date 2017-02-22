@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/// <summary>
+/// 坦克的命令，这个应该被抽象。
+/// author : fanzhengyong
+/// date  : 2017-02-22
+/// 
+using UnityEngine;
 using System.Collections;
 
 public class TankCommond 

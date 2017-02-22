@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/// <summary>
+/// 适用于外部触发的角色控制
+/// author : fanzhengyong
+/// date  : 2017-02-22
+/// 
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 

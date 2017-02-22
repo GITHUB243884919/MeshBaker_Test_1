@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/// <summary>
+/// 战斗场景示范类，应该去mono被真正的场景管理持有。
+/// author : fanzhengyong
+/// date  : 2017-02-22
+/// 
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
