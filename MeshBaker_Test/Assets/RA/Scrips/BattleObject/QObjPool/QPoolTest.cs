@@ -7,7 +7,7 @@ public class QPoolTest : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        int count = 8;
+        int count = 32;
         string[] paths = new string[4] 
         {
             "TankRuntime_Bake/TankMeshBaker",
@@ -17,7 +17,7 @@ public class QPoolTest : MonoBehaviour
         };
 
         QObjCreatorFactory<GameObject> creatorFactory = new QObjCreatorFactoryForMeshBaker(
-            paths, BattleScene.E_BATTLE_OBJECT_TYPE.TANK, count);
+            paths, BattleScene2.E_BATTLE_OBJECT_TYPE.TANK, count);
 
         //QObjCreator<GameObject> creator = creatorFactory.CreatCreator();
         //creator.CreateObjects();

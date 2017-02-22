@@ -49,12 +49,15 @@ public class QObjPool<T>
 {
     private Queue<T> m_pool = new Queue<T>();
     public int FreeCount { get; private set; }
+    public int TotleCount { get; private set; }
 
     public QObjCreatorFactory<T> m_creatorFactory;
     public QObjCreator<T> m_creator;
 
     public bool Init(QObjCreator<T> creator, QObjCreatorFactory<T> creatorFactory = null)
     {
+        FreeCount = 0;
+        TotleCount = 0;
         m_creator = creator;
         m_creatorFactory = creatorFactory;
         return Resize();
@@ -104,6 +107,7 @@ public class QObjPool<T>
 
         int countForAdd = objs.Length;
         FreeCount += countForAdd;
+        TotleCount += countForAdd;
         for (int i = 0; i < countForAdd; i++)
         {
             m_pool.Enqueue(objs[i]);

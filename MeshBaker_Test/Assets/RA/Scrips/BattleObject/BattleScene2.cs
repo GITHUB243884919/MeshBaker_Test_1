@@ -28,8 +28,11 @@ public class BattleScene2 : MonoBehaviour
 
     private void Init()
     {
-        BattleModelObjectPoolManager.Instance.Init();
-        ActiveBattleModelObjectCache.Instance.Init();
+        Debug.Log("begin QObjPoolForMeshBakerMgr Init " + Time.realtimeSinceStartup);
+        QObjPoolForMeshBakerMgr.Instance.Init();
+        Debug.Log("end QObjPoolForMeshBakerMgr Init " + Time.realtimeSinceStartup);
+        ActiveBattleModelObjectCache2.Instance.Init();
+        Debug.Log("ActiveBattleModelObjectCache2 Init");
     }
 
     /// <summary>
@@ -39,30 +42,26 @@ public class BattleScene2 : MonoBehaviour
     /// <param name="serverEntityID"></param>
     /// <param name="serverEntityType"></param>
     /// <returns></returns>
-    public BattleModelObj BorrowBattleModelObj(BattleScene.E_BATTLE_OBJECT_TYPE type,
+    public ActiveBattleModelObject2 BorrowBattleModelObj(BattleScene2.E_BATTLE_OBJECT_TYPE type,
         int serverEntityID, int serverEntityType)
     {
-        BattleModelObj obj = null;
-        ActiveBattleModelObject activeObj = null;
+        ActiveBattleModelObject2 activeObj = null;
 
         //先从缓存中取
-        activeObj = ActiveBattleModelObjectCache.Instance.Find(serverEntityID);
+        activeObj = ActiveBattleModelObjectCache2.Instance.Find(serverEntityID);
         if (activeObj != null)
         {
-            obj = BattleModelObjectPoolManager.Instance.BorrowObj(
-                activeObj.IdxOfPool, activeObj.Type);
-            return obj;
+            return activeObj;
         }
 
         //缓存中没有才从对象池中取
-        obj = BattleModelObjectPoolManager.Instance.BorrowObj(type);
+        GameObject obj = QObjPoolForMeshBakerMgr.Instance.BorrowObj(type);
 
         //从对象池中取出的对象要放入缓存中
-        obj.ServerEntityID = serverEntityID;
-        obj.ServerEntityType = serverEntityType;
-        ActiveBattleModelObjectCache.Instance.Add(obj);
+        ActiveBattleModelObjectCache2.Instance.Add(serverEntityID, 
+            obj, type, out activeObj);
 
-        return obj;
+        return activeObj;
     }
 
     public void ReturnBattleModelObj(BattleModelObj obj)
@@ -75,6 +74,7 @@ public class BattleScene2 : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("BattleScene2 Start " + Time.realtimeSinceStartup);
         Init();
     } 
 
