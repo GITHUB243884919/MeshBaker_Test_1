@@ -43,17 +43,17 @@ public class QObjPoolForMeshBakerMgr
         InitBattleObjPool(pathsTank,
             BattleScene2.E_BATTLE_OBJECT_TYPE.TANK, countTank);
 
-        int countSoldier = 32;
-        string[] pathsSoldier = new string[4] 
-        {
-            "SoldierRuntime_Bake/SoldierMeshBaker",
-            "SoldierRuntime_Bake/SoldierRuntime_Bake-mat",
-            "SoldierRuntime_Bake/SoldierRuntime_Bake",
-            "SoldierRuntime_Bake/Soldier_Seed"
-        };
-        Debug.Log("Init Soldier pool");
-        InitBattleObjPool(pathsSoldier,
-            BattleScene2.E_BATTLE_OBJECT_TYPE.SOLDIER, countSoldier);
+        //int countSoldier = 32;
+        //string[] pathsSoldier = new string[4] 
+        //{
+        //    "SoldierRuntime_Bake/SoldierMeshBaker",
+        //    "SoldierRuntime_Bake/SoldierRuntime_Bake-mat",
+        //    "SoldierRuntime_Bake/SoldierRuntime_Bake",
+        //    "SoldierRuntime_Bake/Soldier_Seed"
+        //};
+        //Debug.Log("Init Soldier pool");
+        //InitBattleObjPool(pathsSoldier,
+        //    BattleScene2.E_BATTLE_OBJECT_TYPE.SOLDIER, countSoldier);
     }
 
     public GameObject BorrowObj(BattleScene2.E_BATTLE_OBJECT_TYPE type)

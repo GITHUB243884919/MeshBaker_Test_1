@@ -31,7 +31,7 @@ public class Scene_Commond_Test : MonoBehaviour
     IEnumerator CreateTanks()
     {
         yield return null;
-        for (int i = 0; i < 33; i++)
+        for (int i = 0; i < 128; i++)
         {
             //CreateTank(i, false, false);
             //CreateTank(i, true, false);

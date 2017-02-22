@@ -57,8 +57,8 @@ public class CharController : MonoBehaviour
             Debug.LogWarning("CharController不存在Commond " + commond);
             return;
         }
-        Debug.Log("Commond = " + commond + " " + TargetForArrive 
-            + " Time " + Time.realtimeSinceStartup);
+        //Debug.Log("Commond = " + commond + " " + TargetForArrive 
+        //    + " Time " + Time.realtimeSinceStartup);
         callback();
     }
 
@@ -70,7 +70,7 @@ public class CharController : MonoBehaviour
     }
 	
     //Unity
-	void Start () 
+	void Awake () 
     {
         Init();
 	}
