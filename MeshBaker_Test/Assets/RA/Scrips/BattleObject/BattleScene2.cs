@@ -69,12 +69,12 @@ public class BattleScene2 : MonoBehaviour
         return activeObj;
     }
 
-    public void ReturnBattleModelObj(BattleModelObj obj)
+    public void ReturnBattleModelObj(ActiveBattleModelObject2 obj)
     {
         //先从缓存中移除
-        ActiveBattleModelObjectCache.Instance.Remove(obj);
+        ActiveBattleModelObjectCache2.Instance.Remove(obj);
         //再还给对象池
-        BattleModelObjectPoolManager.Instance.ReturnObj(obj);
+        QObjPoolForMeshBakerMgr.Instance.ReturnObj(obj.GameObject, obj.Type);
     }
 
     void Start()
