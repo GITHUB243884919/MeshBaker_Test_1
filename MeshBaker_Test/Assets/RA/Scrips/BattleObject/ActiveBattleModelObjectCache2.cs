@@ -70,25 +70,25 @@ public class ActiveBattleModelObjectCache2
         return result;
     }
 
-    public bool Remove(int serverEntityID, GameObject obj)
+    public bool Remove(ActiveBattleModelObject2 activeObj)
     {
         bool result = false;
 
-        if (obj == null)
+        if (activeObj == null)
         {
             return result;
         }
 
-        ActiveBattleModelObject2 activeObj = null;
-        m_cache.TryGetValue(serverEntityID, out activeObj);
-        if (activeObj == null)
+        ActiveBattleModelObject2 _activeObj = null;
+        m_cache.TryGetValue(activeObj.ServerEntityID, out activeObj);
+        if (_activeObj == null)
         {
             result = true;
             return result;
         }
 
-        m_cache[serverEntityID] = null;
-        m_cache.Remove(serverEntityID);
+        m_cache[activeObj.ServerEntityID] = null;
+        m_cache.Remove(activeObj.ServerEntityID);
 
         result = true;
         return result;
