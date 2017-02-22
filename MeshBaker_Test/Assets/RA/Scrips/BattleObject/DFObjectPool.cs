@@ -173,6 +173,7 @@ public class DFObjectPool
         
         int oldCount = m_pool.Count;
         m_countFree += objs.Length;
+        // i < m_countFree 是不是有问题？2017-02-22
         for (int i = 0; i < m_countFree; i++)
         {
             objs[i].m_idx = oldCount + i;
