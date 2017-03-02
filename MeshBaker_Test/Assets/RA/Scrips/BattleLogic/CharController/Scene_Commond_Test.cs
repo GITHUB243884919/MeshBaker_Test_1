@@ -46,7 +46,8 @@ public class Scene_Commond_Test : MonoBehaviour
         int serverEntityID = entityID;
         int serverEntityType = 1;
 
-        Vector3 initPos = new Vector3(0f, 0f, 0f);
+        //Vector3 initPos = new Vector3(0f, 0f, 0f);
+        Vector3 initPos = new Vector3(Random.Range(10, 310), 0f, Random.Range(10, 310));
         ActiveBattleModelObject2 obj = BattleScene2.Instance.BorrowBattleModelObj(
             type, serverEntityID, serverEntityType);
 
